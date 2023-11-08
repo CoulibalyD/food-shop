@@ -4,27 +4,36 @@ import { sample_foods, sample_tags } from 'src/data';
 import { Tag } from '../models/Tag';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FoodService {
-
-  constructor() { }
-
-  getAll():Food[]{
+  constructor() {}
+  //recuperer toute la liste de food
+  getAll(): Food[] {
     return sample_foods;
   }
-
-  getAllFoodsBySearchTerm(searchTerm:string){
-    return this.getAll().filter(food =>food.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  
+  //recherche un food par son nom
+  getAllFoodsBySearchTerm(searchTerm: string) {
+    return this.getAll().filter((food) =>
+      food.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }
 
-  getAllTags():Tag[]{
+  //recuperer toute la liste des tags
+  getAllTags(): Tag[] {
     return sample_tags;
   }
 
-  getAllFoodsByTag(tag:string):Food[]{
-    return tag === "All"?
-    this.getAll():
-    this.getAll().filter(food => food.tags?.includes(tag));
+  //rechercher un tag par nom
+  getAllFoodsByTag(tag: string): Food[] {
+    return tag === 'All'
+      ? this.getAll()
+      : this.getAll().filter((food) => food.tags?.includes(tag));
+  }
+
+  //recuperer un food par son nom 
+  getFoodById(foodId: string): Food {
+    return this.getAll().find((food) => food.id == foodId) ?? new Food();
   }
 }
