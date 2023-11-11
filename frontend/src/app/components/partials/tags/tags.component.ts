@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from 'src/app/models/Tag';
+import { Tag } from 'src/app/shared/models/Tag';
 import { FoodService } from 'src/app/services/food.service';
 
 @Component({
@@ -10,7 +10,9 @@ import { FoodService } from 'src/app/services/food.service';
 export class TagsComponent {
   tags?: Tag[];
   constructor(foodService: FoodService) {
-    this.tags = foodService.getAllTags();
+    foodService.getAllTags().subscribe((serverTags) => {
+      this.tags = serverTags;
+    });
   }
   ngOnInit(): void {}
 }

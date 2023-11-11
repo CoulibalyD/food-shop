@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Food } from 'src/app/models/Food';
+import { Food } from 'src/app/shared/models/Food';
 import { CartService } from 'src/app/services/cart.service';
 import { FoodService } from 'src/app/services/food.service';
 
@@ -18,7 +18,9 @@ export class FoodPageComponent {
     private router: Router
   ) {
     activatedRoute.params.subscribe((params) => {
-      if (params.id) this.food = foodService.getFoodById(params.id);
+      if (params.id) 
+      foodService.getFoodById(params.id)  .subscribe(serverFood =>{
+       this.food = serverFood;});
     });
   }
 
